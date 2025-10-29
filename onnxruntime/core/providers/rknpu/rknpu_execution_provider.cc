@@ -284,7 +284,7 @@ common::Status RknpuExecutionProvider::Compile(const std::vector<FusedNodeAndGra
       std::unique_ptr<RknpuFuncState> p =
           std::make_unique<RknpuFuncState>();
       rk::nn::Graph* graph = new rk::nn::Graph();
-      *p = {"", std::unique_ptr<rk::nn::Execution>(new rk::nn::Execution(graph)),
+      *p = {"", std::unique_ptr<rk::nn::Exection>(new rk::nn::Exection(graph)),
             model_proto_[context->node_name], input_info_[context->node_name],
             output_info_[context->node_name],
             std::vector<int>{}, std::vector<int>{}};
