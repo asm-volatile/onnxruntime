@@ -28,7 +28,7 @@ constexpr const char* RKNPU = "Rknpu";
 struct RknpuFuncState {
   std::string uniq_input_shape;
 
-  std::unique_ptr<rk::nn::Execution> exector;
+  std::unique_ptr<rk::nn::Exection> exector;
   ONNX_NAMESPACE::ModelProto model_proto;
   std::unordered_map<std::string, int> input_map;
   std::unordered_map<std::string, int> output_map;
