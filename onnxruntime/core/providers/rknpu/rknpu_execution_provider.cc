@@ -295,7 +295,7 @@ common::Status RknpuExecutionProvider::Compile(const std::vector<FusedNodeAndGra
     compute_info.release_state_func = [](FunctionState state) {
       if (state) {
         RknpuFuncState* p = static_cast<RknpuFuncState*>(state);
-        rk::nn::Graph* graph = p->exector->GetGraph();
+        rk::nn::Graph* graph = p->exector.GetGraph();
         delete graph;
         delete p;
       }
@@ -351,12 +351,12 @@ common::Status RknpuExecutionProvider::Compile(const std::vector<FusedNodeAndGra
                               " skip rebuild!";
       }
 
-      rk::nn::Graph* graph = rk_state->exector->GetGraph();
+      rk::nn::Graph* graph = rk_state->exector.GetGraph();
       if (rebuild) {
         rknpu::OnnxConverter converter;
         converter.Convert(rk_state->model_proto, graph, input_bufs, rk_state->input_map);
 
-        rk_state->exector->Build();
+        rk_state->exector.Build();
 
         auto input_map = rk_state->input_map;
         auto output_map = rk_state->output_map;
@@ -479,9 +479,9 @@ common::Status RknpuExecutionProvider::Compile(const std::vector<FusedNodeAndGra
         outputs[i].want_float = false;
       }
 
-      rk_state->exector->SetInputs(inputs);
-      rk_state->exector->Run();
-      rk_state->exector->GetOutputs(outputs);
+      rk_state->exector.SetInputs(inputs);
+      rk_state->exector.Run();
+      rk_state->exector.GetOutputs(outputs);
 
       return Status::OK();
     };
